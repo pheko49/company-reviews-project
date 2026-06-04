@@ -1,11 +1,38 @@
 from fastapi import APIRouter
-from sqlalchemy import text
+# from sqlalchemy import text
 
-from src.database.connection import engine
+# from src.database.connection import engine
+
 
 from src.api.models import Company
+from src.services.company_service import (
+    get_company,
+    get_top_rated_companies,
+    get_most_reviewed_company
+    )
+
 router = APIRouter()
 
+@router.get('/companies/{company_name}', response_model=Company)
+
+def company(company_name: str):
+
+    result = get_company(company_name)
+
+    if result is None:
+        return {'message': 'Company not found'}
+    
+    return result
+
+@router.get('/top-rated-companies')
+def top_rated_companies():
+
+    return get_top_rated_companies()
+
+@router.get('/most-reviewed-company')
+def most_reviewed_company():
+
+    return get_most_reviewed_company()
 # @router.get('/companies/{comapny_name}')
 # def get_company(company_name: str):
 
@@ -44,25 +71,3 @@ router = APIRouter()
     
 #     return companies
 
-@router.get('/companies/{company_name}', response_model=Company)
-def get_company(company_name: str):
-    
-    query = text("""
-        SELECT *
-        FROM company_reviews
-        WHERE company_name = :company_name
-    """)
-    
-    with engine.connect() as conn:
-
-        result = conn.execute(
-            query,
-            {'company_name': company_name}
-        )
-
-        company = result.fetchone()
-
-    if company is None:
-        return {'message': 'Companny not found'}
-    
-    return dict(company._mapping)
