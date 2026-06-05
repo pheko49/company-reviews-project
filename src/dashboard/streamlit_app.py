@@ -73,15 +73,60 @@ elif page == 'Analytics':
 
     fig = px.bar(
         top_rated_df,
-        x='company_name',
-        y='rating',
+        x='rating',
+        y='company_name',
+        orientation='h',
         title='Top Rated Companies'
+    )
+
+    st.plotly_chart(
+        fig,
+        # use_container_width=True
+    )
+
+    # Top Review Cities
+    st.subheader('Top Review Cities')
+
+    response = requests.get(
+        'http://127.0.0.1:8000/top-review-cities'
+    )
+
+    cities_df = pd.DataFrame(
+        response.json()
+    )
+
+    fig = px.bar(
+        cities_df,
+        x='city',
+        y='total_reviews',
+        title='Top Review Cities'
     )
 
     st.plotly_chart(
         fig,
         use_container_width=True
     )
+
+    # Create scatter plot
+    st.subheader('Relationship Between Ratings and Reviews')
+
+    response = requests.get(
+        'http://127.0.0.1:8000/companies'
+    )
+
+    df = pd.DataFrame(
+        response.json()
+    )
+
+    fig = px.scatter(
+        df,
+        x='reviews_count',
+        y='rating',
+        hover_name='company_name',
+        title='Rating vs Reviews'
+    )
+
+    st.plotly_chart(fig)
 
 elif page == 'Company Search':
 
