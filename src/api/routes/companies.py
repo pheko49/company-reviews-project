@@ -10,7 +10,8 @@ from src.services.company_service import (
     get_top_rated_companies,
     get_most_reviewed_company,
     get_top_reviewed_city,
-    get_companies_by_city
+    get_companies_by_city,
+    get_companies_by_rating
     )
 
 router = APIRouter()
@@ -47,7 +48,10 @@ def companies_by_city(city: str):
 
     return get_companies_by_city(city)
 
+@router.get('/companies-filter')
+def companies_filter(min_rating: float):
 
+    return get_companies_by_rating(min_rating)
 # @router.get('/companies/{comapny_name}')
 # def get_company(company_name: str):
 

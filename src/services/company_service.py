@@ -120,3 +120,27 @@ def get_companies_by_city(city: str):
 
     return companies
 
+def get_companies_by_rating(min_rating: float):
+    
+    query = text("""
+        SELECT
+            company_name,
+            rating,
+            city
+        FROM company_reviews
+        WHERE rating >= :min_rating
+        ORDER BY rating DESC
+        """)
+    
+    with engine.connect() as conn:
+
+        result = conn.execute(
+            query,
+            {'min_rating': min_rating}
+        )
+        companies = [
+            dict(row._mapping)
+            for row in result
+        ]
+
+    return companies
