@@ -8,7 +8,9 @@ from src.api.models import Company
 from src.services.company_service import (
     get_company,
     get_top_rated_companies,
-    get_most_reviewed_company
+    get_most_reviewed_company,
+    get_top_reviewed_city,
+    get_companies_by_city
     )
 
 router = APIRouter()
@@ -33,6 +35,19 @@ def top_rated_companies():
 def most_reviewed_company():
 
     return get_most_reviewed_company()
+
+@router.get('/top-review-cities')
+def top_review_cities():
+    
+    return get_top_reviewed_city()
+
+
+@router.get('/companies-by-city/{city}')
+def companies_by_city(city: str):
+
+    return get_companies_by_city(city)
+
+
 # @router.get('/companies/{comapny_name}')
 # def get_company(company_name: str):
 

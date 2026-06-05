@@ -68,3 +68,55 @@ def get_most_reviewed_company():
         ]
     
     return companies
+
+def get_top_reviewed_city():
+
+    query = text("""
+                 SELECT
+                    city,
+                    SUM(reviews_count) AS total_reviews
+                 FROM company_reviews
+                 GROUP BY city
+                 ORDER BY total_reviews DESC
+                 LIMIT 10
+
+                 """)
+    
+    with engine.connect() as conn:
+
+        result = conn.execute(query)
+
+        cities = [
+            dict(row._mapping)
+            for row in result
+        ]
+    
+    return cities
+
+def get_companies_by_city(city: str):
+
+    query = text("""
+        SELECT
+            company_name,
+            rating,
+            company_type,
+            city
+        FROM company_reviews
+        WHERE city = :city
+        ORDER BY rating DESC    
+    """)
+
+    with engine.connect() as conn:
+
+        result = conn.execute(
+            query,
+            {'city': city}
+        )
+
+        companies = [
+            dict(row._mapping)
+            for row in result
+        ]
+
+    return companies
+
