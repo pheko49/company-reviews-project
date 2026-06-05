@@ -82,3 +82,25 @@ elif page == 'Analytics':
         fig,
         use_container_width=True
     )
+
+elif page == 'Company Search':
+
+    st.title('🔍 Company Search')
+
+    company_name = st.text_input(
+        'Enter company name'
+    )
+
+    if company_name:
+
+        response = requests.get(
+            f'http://127.0.0.1:8000/companies/{company_name}'
+        )
+
+        if response.status_code == 200:
+
+            company = response.json()
+
+            st.write(company)
+        else:
+            st.error('Company not found')
