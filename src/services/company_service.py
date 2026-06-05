@@ -2,6 +2,30 @@ from sqlalchemy import text
 
 from src.database.connection import engine
 
+def get_all_companies():
+
+    query = text("""
+        SELECT
+            company_id,
+            company_name,
+            rating,
+            company_type,
+            city,
+            reviews_count,
+            salary_submissions
+        FROM company_reviews   
+    """)
+
+    with engine.connect() as conn:
+
+        result = conn.execute(query)
+
+        companies = [
+            dict(row._mapping)
+            for row in result
+        ]
+    
+    return companies
 
 def get_company(company_name: str):
     
@@ -21,7 +45,8 @@ def get_company(company_name: str):
         company = result.fetchone()
 
     if company is None:
-        return {'message': 'Companny not found'}
+        # return {'message': 'Companny not found'}
+        return None
     
     return dict(company._mapping)
 

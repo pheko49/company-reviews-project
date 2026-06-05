@@ -1,11 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 # from sqlalchemy import text
 
 # from src.database.connection import engine
 
 
-from src.api.models import Company
+from src.api.models import Company, TopRatedCompany, MostReviewedCompany, CityRating
 from src.services.company_service import (
+    get_all_companies,
     get_company,
     get_top_rated_companies,
     get_most_reviewed_company,
@@ -16,6 +17,11 @@ from src.services.company_service import (
 
 router = APIRouter()
 
+@router.get('/companies', response_model=list[Company])
+def companies():
+
+    return get_all_companies()
+
 @router.get('/companies/{company_name}', response_model=Company)
 
 def company(company_name: str):
@@ -23,11 +29,16 @@ def company(company_name: str):
     result = get_company(company_name)
 
     if result is None:
-        return {'message': 'Company not found'}
+        # return {'message': 'Company not found'}
+        raise HTTPException(
+            status_code=404,
+            detail='Company not found'
+        )
     
     return result
 
-@router.get('/top-rated-companies')
+@router.get('/top-rated-companies',
+            response_model=list[TopRatedCompany])
 def top_rated_companies():
 
     return get_top_rated_companies()

@@ -8,3 +8,15 @@ class Company(BaseModel):
     city: str
     reviews_count: int
     salary_submissions: int
+
+class TopRatedCompany(BaseModel):
+    company_name: str
+    rating: float
+
+class MostReviewedCompany(BaseModel):
+    company_name: str
+    reviews_count: int
+
+class CityRating(BaseModel):
+    city: str
+    avg_rating: float
