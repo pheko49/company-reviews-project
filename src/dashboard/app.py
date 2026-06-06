@@ -2,9 +2,9 @@ import streamlit as st
 # import requests
 # import pandas as pd
 # import plotly.express as px
-from pages.home import show_home
-from pages.analytics import show_analytics
-from pages.search import show_search
+from views.home import show_home
+from views.analytics import show_analytics
+from views.search import show_search
 
 # page config
 # st.set_page_config(
