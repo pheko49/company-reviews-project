@@ -43,7 +43,7 @@ df = df[
 df.to_sql(
     name='company_reviews',
     con=engine,
-    if_exists='append',
+    if_exists='replace',
     index=False
 )
 
