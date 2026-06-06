@@ -1,7 +1,15 @@
 import streamlit as st
 import requests
+import os
 
-BASE_URL = 'http://127.0.0.1:8000'
+# BASE_URL = 'http://127.0.0.1:8000'
+
+# BASE_URL = 'http://host.docker.internal:8000'
+
+BASE_URL = os.getenv(
+    "API_URL",
+    "http://127.0.0.1:8000"
+)
 
 # Get all companies
 @st.cache_data
