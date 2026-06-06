@@ -35,4 +35,4 @@ def get_company(company_name):
             f'{BASE_URL}/companies/{company_name}'
         )
     
-    return response.json()
+    return response
