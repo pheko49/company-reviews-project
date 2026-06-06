@@ -15,7 +15,7 @@ def get_companies():
 def get_top_rated_companies():
     response = requests.get(
         f'{BASE_URL}/top-rated-companies'
-    ).json()
+    )
 
     return response.json()
 
