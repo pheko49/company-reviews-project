@@ -12,13 +12,31 @@ BASE_URL = os.getenv(
 )
 
 # Get all companies
+# @st.cache_data
+# def get_companies():
+#     response = requests.get(f'{BASE_URL}/companies')
+
+#     response.raise_for_status()
+
+#     return response.json()
 @st.cache_data
 def get_companies():
-    response = requests.get(f'{BASE_URL}/companies')
+    try:
+        response = requests.get(
+            f'{BASE_URL}/companies',
+            timeout=30
+        )
 
-    response.raise_for_status()
+        response.raise_for_status()
 
-    return response.json()
+        return response.json()
+    
+    except requests.exceptions.RequestException:
+        st.warning(
+            'The API is still waking up. Please wait a few seconds and refresh the page.'
+        )
+        return []
+
 
 # Get top rated companies
 @st.cache_data
