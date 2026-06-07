@@ -14,7 +14,10 @@ BASE_URL = os.getenv(
 # Get all companies
 @st.cache_data
 def get_companies():
+    st.write("BASE_URL =", BASE_URL)
     response = requests.get(f'{BASE_URL}/companies')
+
+    st.write("Status =", response.status_code)
 
     return response.json()
 
