@@ -132,6 +132,7 @@ source .venv/bin/activate
 Install dependencies:
 
 pip install -r requirements.txt
+```
 
 Create a .env file and add:
 
@@ -165,7 +166,7 @@ docker build -t company-reviews-dashboard .
 Run the container:
 
 docker run -p 8501:8501 company-reviews-dashboard
-
+```
 
 ## Author
 
