@@ -132,7 +132,6 @@ source .venv/bin/activate
 Install dependencies:
 
 pip install -r requirements.txt
-```
 
 Create a .env file and add:
 
@@ -150,7 +149,7 @@ uvicorn src.api.main:app --reload
 Run the dashboard:
 
 streamlit run src/dashboard/app.py
-
+```
 ---
 
 Since you've Dockerized the project, you can also add a shorter Docker section:
