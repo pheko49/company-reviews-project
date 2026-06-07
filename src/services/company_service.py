@@ -6,7 +6,6 @@ def get_all_companies():
 
     query = text("""
         SELECT
-            company_id,
             company_name,
             rating,
             company_type,
