@@ -46,7 +46,5 @@ def get_company(company_name):
     response = requests.get(
             f'{BASE_URL}/companies/{company_name}'
         )
-    
-    response.raise_for_status()
-    
+
     return response
