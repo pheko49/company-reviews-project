@@ -16,6 +16,8 @@ BASE_URL = os.getenv(
 def get_companies():
     response = requests.get(f'{BASE_URL}/companies')
 
+    response.raise_for_status()
+
     return response.json()
 
 # Get top rated companies
@@ -34,6 +36,8 @@ def get_top_review_cities():
         f'{BASE_URL}/top-review-cities'
     )
      
+     response.raise_for_status()
+
      return response.json()
 
 # Company search
@@ -42,5 +46,7 @@ def get_company(company_name):
     response = requests.get(
             f'{BASE_URL}/companies/{company_name}'
         )
+    
+    response.raise_for_status()
     
     return response
